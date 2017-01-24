@@ -1,6 +1,6 @@
 {
   "name": "goferfs-adapter-local",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local Adapter for Gofer",
   "main": "build/index.js",
   "engines": {
