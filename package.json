@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "Local Adapter for Gofer",
   "main": "build/index.js",
+  "types": "./suite.d.ts",
   "engines": {
     "node": ">=4.0"
   },

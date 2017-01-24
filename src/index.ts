@@ -9,7 +9,7 @@ import { Readable } from 'stream';
 chai.use(chaiAsPromised);
 chai.should();
 
-export default function(adapter: IAdapter) {
+export function goferTests(adapter: IAdapter) {
     const gofer = new Gofer(adapter);
 
     describe('The Basics', function () {
