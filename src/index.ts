@@ -1,9 +1,8 @@
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
-import Gofer from 'goferfs';
-import { IAdapter } from 'goferfs/types/interfaces';
-import { Visibility } from 'goferfs/types';
+import Gofer, { Visibility, Metadata } from 'goferfs';
+import { IAdapter } from 'goferfs/interfaces';
 import { Readable } from 'stream';
 
 chai.use(chaiAsPromised);
