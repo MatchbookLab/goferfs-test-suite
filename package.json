@@ -1,0 +1,40 @@
+{
+  "name": "goferfs-adapter-local",
+  "version": "0.1.0",
+  "description": "Local Adapter for Gofer",
+  "main": "build/index.js",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "scripts": {
+    "build": "rimraf build && npm run lint && tsc",
+    "lint": "tslint ./src/**/*",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "url": "http://github.com/cohesivelabs/goferfs",
+    "type": "git"
+  },
+  "author": "Cameron Spear <cam@cameronspear.com>",
+  "contributors": [
+    "Justen Martin <jmart@the-coder.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "goferfs": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/chai-as-promised": "^0.0.29",
+    "@types/mime": "^0.0.29",
+    "@types/mocha": "^2.2.38",
+    "@types/node": "^6.0.52",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "goferfs-types": "^1.1.0",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4",
+    "tslint": "^4.3.1",
+    "typescript": "^2.1.5"
+  }
+}
