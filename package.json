@@ -2,14 +2,14 @@
   "name": "goferfs-test-suite",
   "version": "0.7.0",
   "description": "Local Adapter for Gofer",
-  "main": "build/index.js",
-  "types": "./suite.d.ts",
+  "main": "index.js",
+  "types": "suite.d.ts",
   "engines": {
     "node": ">=4.0"
   },
   "scripts": {
-    "build": "rimraf build && npm run lint && tsc",
-    "lint": "tslint ./src/**/*",
+    "build": "rimraf *.js lib/**/*.js && npm run lint && tsc",
+    "lint": "tslint --exclude=node_modules/**/* **/*.ts",
     "prepublish": "npm run build",
     "publish": "np"
   },
@@ -26,13 +26,13 @@
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "^0.0.29",
     "@types/mocha": "^2.2.38",
-    "@types/node": "^6.0.52",
+    "@types/node": "^7.0.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "goferfs": "^0.7.0",
+    "goferfs": "^1.0.0-1",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
-    "tslint": "^4.3.1",
+    "tslint": "^4.4.1",
     "typescript": "^2.1.5"
   },
   "devDependencies": {
