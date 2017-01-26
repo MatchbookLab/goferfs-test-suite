@@ -3,7 +3,7 @@ import * as chaiAsPromised from 'chai-as-promised';
 
 import Gofer from 'goferfs';
 import { Visibility } from 'goferfs/types';
-import { IAdapter } from 'goferfs/interfaces';
+import { IAdapter } from 'goferfs/types/interfaces';
 import { Readable } from 'stream';
 
 chai.use(chaiAsPromised);
