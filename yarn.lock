@@ -13,10 +13,6 @@
   version "3.4.34"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.4.34.tgz#d5335792823bb09cddd5e38c3d211b709183854d"
 
-"@types/mime@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
-
 "@types/mocha@^2.2.38":
   version "2.2.38"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.38.tgz#8c188f6e34c2e7c3f1d0127d908d5a36e5a60dc9"
@@ -421,9 +417,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-goferfs@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/goferfs/-/goferfs-0.4.1.tgz#3a3d7f734695529a3059275cab068d80483c4f47"
+goferfs@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/goferfs/-/goferfs-0.6.0.tgz#461892e2308bc5b2357a4b9a784f57bdf6dcbbde"
 
 got@^5.0.0:
   version "5.7.1"
