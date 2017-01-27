@@ -7,8 +7,8 @@
     "node": ">=4.0"
   },
   "scripts": {
-    "build": "rimraf *.js lib/**/*.js && npm run lint && tsc",
-    "lint": "tslint --exclude=node_modules/**/* **/*.ts",
+    "build": "rimraf src/**/*.js && npm run lint && tsc",
+    "lint": "tslint src/**/*.ts",
     "prepublish": "npm run build",
     "publish": "np"
   },
@@ -28,7 +28,7 @@
     "@types/node": "^7.0.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "goferfs": "^1.0.0-2",
+    "goferfs": "^1.0.0-3",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "tslint": "^4.4.2",

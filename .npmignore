@@ -1,5 +1,1 @@
-docs/
-tslint.json
-tsconfig.json
-yarn.lock
-.editorconfig
+.idea
