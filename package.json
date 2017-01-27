@@ -1,6 +1,6 @@
 {
   "name": "goferfs-test-suite",
-  "version": "1.0.0-7",
+  "version": "1.0.0-8",
   "description": "Local Adapter for Gofer",
   "main": "src/index.js",
   "types": "src/index.ts",
@@ -30,7 +30,7 @@
     "@types/node": "^7.0.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "goferfs": "^1.0.0-5",
+    "goferfs": "^1.0.0-7",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "tslint": "^4.4.2",
