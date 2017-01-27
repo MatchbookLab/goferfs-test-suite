@@ -417,9 +417,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-goferfs@^1.0.0-4:
-  version "1.0.0-4"
-  resolved "https://registry.yarnpkg.com/goferfs/-/goferfs-1.0.0-4.tgz#f2d923e7c5d68e7578e5936b26b332dd9361addb"
+goferfs@^1.0.0-5:
+  version "1.0.0-5"
+  resolved "https://registry.yarnpkg.com/goferfs/-/goferfs-1.0.0-5.tgz#c77b68abc3734224f6e4dc79264ef56b07b986d7"
 
 got@^5.0.0:
   version "5.7.1"
