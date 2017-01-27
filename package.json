@@ -1,6 +1,6 @@
 {
   "name": "goferfs-test-suite",
-  "version": "1.0.0-3",
+  "version": "1.0.0-4",
   "description": "Local Adapter for Gofer",
   "main": "index.js",
   "engines": {
