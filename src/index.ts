@@ -44,7 +44,8 @@ export function goferTests(adapter: IAdapter) {
             await gofer.write('overwrite.txt', 'Old Contents');
             await gofer.write('overwrite.txt', 'New Contents');
 
-            (await gofer.read('overwrite.txt')).should.equal('New Contents', 'contents');
+            const { contents } = await gofer.read('overwrite.txt');
+            contents.should.equal('New Contents', 'contents');
         });
     });
 
@@ -110,6 +111,26 @@ export function goferTests(adapter: IAdapter) {
 
             contents.should.equal('Test Stream', 'contents');
         });
+
+        it('should override contents with streams', async () => {
+            const inputStreamOld = new Readable();
+
+            inputStreamOld.push('Old Stream Contents');
+            inputStreamOld.push(null);
+
+            await gofer.writeStream('overwrite-stream.txt', inputStreamOld);
+
+            const inputStreamNew = new Readable();
+
+            inputStreamNew.push('New Stream Contents');
+            inputStreamNew.push(null);
+
+            await gofer.writeStream('overwrite-stream.txt', inputStreamNew);
+
+            const { contents } = await gofer.read('overwrite-stream.txt');
+            contents.should.equal('New Stream Contents', 'contents');
+        });
+
 
         it('should get visibility', async () => {
             await gofer.write('path/to/test.txt', 'Test', { visibility: Visibility.Public });
