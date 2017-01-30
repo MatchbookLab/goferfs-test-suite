@@ -39,6 +39,13 @@ export function goferTests(adapter: IAdapter) {
 
             (await gofer.exists('path/to/test.txt')).should.equal(false, 'exists');
         });
+
+        it('should overwrite contents of existing files', async () => {
+            await gofer.write('overwrite.txt', 'Old Contents');
+            await gofer.write('overwrite.txt', 'New Contents');
+
+            (await gofer.read('overwrite.txt')).should.equal('New Contents', 'contents');
+        });
     });
 
     describe('The Fun', function () {
@@ -90,9 +97,9 @@ export function goferTests(adapter: IAdapter) {
             inputStream.push('Test Stream');
             inputStream.push(null);
 
-            await gofer.writeStream('path/to/test1.txt', inputStream);
+            await gofer.writeStream('path/to/test-stream.txt', inputStream);
 
-            const { stream } = await gofer.readStream('path/to/test1.txt');
+            const { stream } = await gofer.readStream('path/to/test-stream.txt');
 
             const contents = await new Promise((resolve, reject) => {
                 let str = '';
