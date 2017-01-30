@@ -105,13 +105,13 @@ export function goferTests(adapter: IAdapter) {
         });
 
         it('should get visibility', async () => {
-            await gofer.write('path/to/test.txt', 'Test');
+            await gofer.write('path/to/test.txt', 'Test', { visibility: Visibility.Public });
 
             (await gofer.getVisibility('path/to/test.txt')).should.equal(Visibility.Public, 'visibility');
         });
 
         it('should set visibility', async () => {
-            await gofer.write('path/to/test.txt', 'Test');
+            await gofer.write('path/to/test.txt', 'Test', { visibility: Visibility.Public });
 
             await gofer.setVisibility('path/to/test.txt', Visibility.Private);
             (await gofer.getVisibility('path/to/test.txt')).should.equal(Visibility.Private, 'visibility');
