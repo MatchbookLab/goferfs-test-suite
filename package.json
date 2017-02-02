@@ -1,6 +1,6 @@
 {
   "name": "goferfs-test-suite",
-  "version": "1.0.0-15",
+  "version": "1.0.0-16",
   "description": "Local Adapter for Gofer",
   "main": "src/index.js",
   "types": "src/index.ts",
@@ -12,7 +12,7 @@
     "clean": "rimraf src/**/*.js",
     "build": "npm run clean && npm run lint && tsc && babel -d . src/**/*.js",
     "prepublish": "npm run build",
-    "publish": "np"
+    "np": "np"
   },
   "repository": {
     "url": "http://github.com/cohesivelabs/goferfs",
