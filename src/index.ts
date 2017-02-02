@@ -9,81 +9,85 @@ import { Readable } from 'stream';
 chai.use(chaiAsPromised);
 chai.should();
 
+// tests may be run concurrently, so need to prefix files
+const prefix = Math.ceil(Math.random() * 100000);
+
 export function goferTests(adapter: IAdapter) {
     const gofer = new Gofer(adapter);
 
     describe('The Basics', function () {
         it('should write and read', async () => {
-            await gofer.write('test.txt', 'Hello, friend!');
+            await gofer.write(`${prefix}-test.txt`, 'Hello, friend!');
 
-            (await gofer.exists('test.txt')).should.equal(true, 'exists');
+            (await gofer.exists(`${prefix}-test.txt`)).should.equal(true, 'exists');
 
-            const { contents } = await gofer.read('test.txt');
+            const { contents } = await gofer.read(`${prefix}-test.txt`);
             contents.should.equal('Hello, friend!', 'contents');
         });
 
         it('should delete', async () => {
-            await gofer.delete('test.txt');
+            await gofer.delete(`${prefix}-test.txt`);
 
-            (await gofer.exists('test.txt')).should.equal(false, 'exists');
+            (await gofer.exists(`${prefix}-test.txt`)).should.equal(false, 'exists');
         });
 
         it('should create path to file', async () => {
-            await gofer.write('path/to/test.txt', 'Test');
+            await gofer.write(`${prefix}-path/to/test.txt`, 'Test');
 
-            (await gofer.exists('path/to/test.txt')).should.equal(true, 'exists');
+            (await gofer.exists(`${prefix}-path/to/test.txt`)).should.equal(true, 'exists');
         });
 
         it('should delete a directory', async () => {
-            await gofer.deleteDir('path');
+            await gofer.deleteDir(`${prefix}-path`);
 
-            (await gofer.exists('path/to/test.txt')).should.equal(false, 'exists');
+            (await gofer.exists(`${prefix}-path/to/test.txt`)).should.equal(false, 'exists');
         });
 
         it('should overwrite contents of existing files', async () => {
-            await gofer.write('overwrite.txt', 'Old Contents');
-            await gofer.write('overwrite.txt', 'New Contents');
+            await gofer.write(`${prefix}-path/overwrite.txt`, 'Old Contents');
+            await gofer.write(`${prefix}-path/overwrite.txt`, 'New Contents');
 
-            const { contents } = await gofer.read('overwrite.txt');
+            const { contents } = await gofer.read(`${prefix}-path/overwrite.txt`);
             contents.should.equal('New Contents', 'contents');
         });
     });
 
     describe('The Fun', function () {
         afterEach(async () => {
-            await gofer.deleteDir('/');
+            await gofer.deleteDir(`${prefix}-path`);
 
-            (await gofer.exists('path')).should.equal(false, 'exists');
+            // @TODO maybe update this to do more specific check (not storages don't support directories)
+            (await gofer.exists(`${prefix}-path`)).should.equal(false, 'exists');
         });
 
         it('should move', async () => {
-            await gofer.write('path/to/test1.txt', 'Test');
-            await gofer.move('path/to/test1.txt', 'path/to/test2.txt');
+            await gofer.write(`${prefix}-path/to/test1.txt`, 'Test');
+            await gofer.move(`${prefix}-path/to/test1.txt`, `${prefix}-path/to/test2.txt`);
 
-            (await gofer.exists('path/to/test1.txt')).should.equal(false, '"path/to/test1.txt" exists');
-            (await gofer.exists('path/to/test2.txt')).should.equal(true, '"path/to/test2.txt" exists');
-            (await gofer.read('path/to/test2.txt')).contents.should.equal('Test', '"path/to/test2.txt" contents');
+            (await gofer.exists(`${prefix}-path/to/test1.txt`)).should.equal(false, '"path/to/test1.txt" exists');
+            (await gofer.exists(`${prefix}-path/to/test2.txt`)).should.equal(true, '"path/to/test2.txt" exists');
+            (await gofer.read(`${prefix}-path/to/test2.txt`)).contents.should.equal('Test', '"path/to/test2.txt" contents');
         });
 
         it('should copy', async () => {
-            await gofer.write('path/to/test1.txt', 'Test');
-            await gofer.copy('path/to/test1.txt', 'path/to/test2.txt');
+            await gofer.write(`${prefix}-path/to/test1.txt`, 'Test');
+            await gofer.copy(`${prefix}-path/to/test1.txt`, `${prefix}-path/to/test2.txt`);
 
-            (await gofer.exists('path/to/test1.txt')).should.equal(true, '"path/to/test1.txt" exists');
-            (await gofer.exists('path/to/test2.txt')).should.equal(true, '"path/to/test2.txt" exists');
-            (await gofer.read('path/to/test1.txt')).contents.should.equal('Test', '"path/to/test1.txt" contents');
-            (await gofer.read('path/to/test2.txt')).contents.should.equal('Test', '"path/to/test2.txt" contents');
+            (await gofer.exists(`${prefix}-path/to/test1.txt`)).should.equal(true, '"path/to/test1.txt" exists');
+            (await gofer.exists(`${prefix}-path/to/test2.txt`)).should.equal(true, '"path/to/test2.txt" exists');
+            (await gofer.read(`${prefix}-path/to/test1.txt`)).contents.should.equal('Test', '"path/to/test1.txt" contents');
+            (await gofer.read(`${prefix}-path/to/test2.txt`)).contents.should.equal('Test', '"path/to/test2.txt" contents');
         });
 
         it('should return full metadata', async () => {
-            await gofer.write('path/to/test1.txt', 'Test');
-            const file = await gofer.read('path/to/test1.txt');
+            await gofer.write(`${prefix}-path/to/test1.txt`, 'Test');
+            const file = await gofer.read(`${prefix}-path/to/test1.txt`);
 
             file.contents.should.equal('Test', 'contents');
             file.name.should.equal('test1.txt', 'name');
             file.ext.should.equal('.txt', 'ext');
-            file.path.should.equal('path/to/test1.txt', 'path');
-            file.parentDir.should.equal('path/to', 'parentDir');
+            file.path.should.equal(`${prefix}-path/to/test1.txt`, 'path');
+            file.parentDir.should.equal(`${prefix}-path/to`, 'parentDir');
             file.visibility.should.equal(Visibility.Public, 'visibility');
             file.size.should.equal(4, 'size');
             file.isFile.should.equal(true, 'isFile');
@@ -98,9 +102,9 @@ export function goferTests(adapter: IAdapter) {
             inputStream.push('Test Stream');
             inputStream.push(null);
 
-            await gofer.writeStream('path/to/test-stream.txt', inputStream);
+            await gofer.writeStream(`${prefix}-path/to/test-stream.txt`, inputStream);
 
-            const { stream } = await gofer.readStream('path/to/test-stream.txt');
+            const { stream } = await gofer.readStream(`${prefix}-path/to/test-stream.txt`);
 
             const contents = await new Promise((resolve, reject) => {
                 let str = '';
@@ -118,35 +122,35 @@ export function goferTests(adapter: IAdapter) {
             inputStreamOld.push('Old Stream Contents');
             inputStreamOld.push(null);
 
-            await gofer.writeStream('overwrite-stream.txt', inputStreamOld);
+            await gofer.writeStream(`${prefix}-path/overwrite-stream.txt`, inputStreamOld);
 
             const inputStreamNew = new Readable();
 
             inputStreamNew.push('New Stream Contents');
             inputStreamNew.push(null);
 
-            await gofer.writeStream('overwrite-stream.txt', inputStreamNew);
+            await gofer.writeStream(`${prefix}-path/overwrite-stream.txt`, inputStreamNew);
 
-            const { contents } = await gofer.read('overwrite-stream.txt');
+            const { contents } = await gofer.read(`${prefix}-path/overwrite-stream.txt`);
             contents.should.equal('New Stream Contents', 'contents');
         });
 
 
         it('should get visibility', async () => {
-            await gofer.write('path/to/test.txt', 'Test', { visibility: Visibility.Public });
+            await gofer.write(`${prefix}-path/to/test.txt`, 'Test', { visibility: Visibility.Public });
 
-            (await gofer.getVisibility('path/to/test.txt')).should.equal(Visibility.Public, 'visibility');
+            (await gofer.getVisibility(`${prefix}-path/to/test.txt`)).should.equal(Visibility.Public, 'visibility');
         });
 
         it('should set visibility', async () => {
-            await gofer.write('path/to/test.txt', 'Test', { visibility: Visibility.Public });
+            await gofer.write(`${prefix}-path/to/test.txt`, 'Test', { visibility: Visibility.Public });
 
-            await gofer.setVisibility('path/to/test.txt', Visibility.Private);
-            (await gofer.getVisibility('path/to/test.txt')).should.equal(Visibility.Private, 'visibility');
+            await gofer.setVisibility(`${prefix}-path/to/test.txt`, Visibility.Private);
+            (await gofer.getVisibility(`${prefix}-path/to/test.txt`)).should.equal(Visibility.Private, 'visibility');
         });
 
         it('should throw if an invalid visibility is provided', () => {
-            return gofer.setVisibility('path/to/test.txt', 13 as Visibility).should.eventually.be.rejectedWith('Unsupported Visibility: 13');
+            return gofer.setVisibility(`${prefix}-path/to/test.txt`, 13 as Visibility).should.eventually.be.rejectedWith('Unsupported Visibility: 13');
         });
     });
 }
