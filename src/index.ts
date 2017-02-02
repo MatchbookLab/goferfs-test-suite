@@ -144,5 +144,9 @@ export function goferTests(adapter: IAdapter) {
             await gofer.setVisibility('path/to/test.txt', Visibility.Private);
             (await gofer.getVisibility('path/to/test.txt')).should.equal(Visibility.Private, 'visibility');
         });
+
+        it('should throw if an invalid visibility is provided', () => {
+            return gofer.setVisibility('path/to/test.txt', 13 as Visibility).should.eventually.be.rejectedWith('Unsupported Visibility: 13');
+        });
     });
 }
